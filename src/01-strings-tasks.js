@@ -5,7 +5,6 @@
  *                                                                                           *
  ******************************************************************************************* */
 
-
 /**
  * Returns the result of concatenation of two strings.
  *
@@ -22,7 +21,6 @@ function concatenateStrings(value1, value2) {
   const str = value1 + value2;
   return str;
 }
-
 
 /**
  * Returns the length of given string.
@@ -52,8 +50,11 @@ function getStringLength(value) {
  *   'John','Doe'      => 'Hello, John Doe!'
  *   'Chuck','Norris'  => 'Hello, Chuck Norris!'
  */
-function getStringFromTemplate(/* firstName, lastName */) {
-  throw new Error('Not implemented');
+function getStringFromTemplate(firstName, lastName) {
+  const hello = 'Hello,';
+  const a = ' ';
+  const b = '!';
+  return hello + a + firstName + a + lastName + b;
 }
 
 /**
@@ -66,10 +67,11 @@ function getStringFromTemplate(/* firstName, lastName */) {
  *   'Hello, John Doe!' => 'John Doe'
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
-function extractNameFromTemplate(/* value */) {
-  throw new Error('Not implemented');
+function extractNameFromTemplate(value) {
+  const a = value.split(', ');
+  const b = a[1];
+  return b.substr(0, b.length - 1);
 }
-
 
 /**
  * Returns a first char of the given string.
@@ -81,8 +83,8 @@ function extractNameFromTemplate(/* value */) {
  *   'John Doe'  => 'J'
  *   'cat'       => 'c'
  */
-function getFirstChar(/* value */) {
-  throw new Error('Not implemented');
+function getFirstChar(value) {
+  return value[0];
 }
 
 /**
@@ -146,7 +148,6 @@ function unbracketTag(/* str */) {
   throw new Error('Not implemented');
 }
 
-
 /**
  * Converts all characters of the specified string into the upper case
  *
@@ -207,7 +208,6 @@ function getRectangleString(/* width, height */) {
   throw new Error('Not implemented');
 }
 
-
 /**
  * Encode specified string with ROT13 cipher
  * See details:  https://en.wikipedia.org/wiki/ROT13
@@ -245,7 +245,6 @@ function isString(/* value */) {
   throw new Error('Not implemented');
 }
 
-
 /**
  * Returns playid card id.
  *
@@ -273,7 +272,6 @@ function isString(/* value */) {
 function getCardId(/* value */) {
   throw new Error('Not implemented');
 }
-
 
 module.exports = {
   concatenateStrings,
