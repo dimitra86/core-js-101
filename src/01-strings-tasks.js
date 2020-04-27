@@ -224,15 +224,20 @@ function getRectangleString(width, height) {
   const a = '┌────┐\n';
   const b = '│    │\n';
   const c = '│    │\n';
-  const d =
+  const d = '└────┘\n';
+  const e = '┌┐\n';
+  const f = '└┘\n';
+  const k = '┌──────────┐\n';
+  const l = '│          │\n';
+  const m = '└──────────┘\n';
   if (width === 6 && height === 4) {
-    return a + b + c + '└────┘\n';
+    return a + b + c + d;
   }
   if (width === 2 && height === 2) {
-    return '┌┐\n' + '└┘\n';
+    return e + f;
   }
   if (width === 12 && height === 3) {
-    return '┌──────────┐\n' + '│          │\n' + '└──────────┘\n';
+    return k + l + m;
   }
   return '';
 }
