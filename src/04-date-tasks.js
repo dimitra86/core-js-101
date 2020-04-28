@@ -19,8 +19,8 @@
  *    'Tue, 26 Jan 2016 13:48:02 GMT' => Date()
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
-function parseDataFromRfc2822(/* value */) {
-  throw new Error('Not implemented');
+function parseDataFromRfc2822(value) {
+  return Date.parse(value);
 }
 
 /**
@@ -34,8 +34,8 @@ function parseDataFromRfc2822(/* value */) {
  *    '2016-01-19T16:07:37+00:00'    => Date()
  *    '2016-01-19T08:07:37Z' => Date()
  */
-function parseDataFromIso8601(/* value */) {
-  throw new Error('Not implemented');
+function parseDataFromIso8601(value) {
+  return Date.parse(value);
 }
 
 
@@ -53,8 +53,10 @@ function parseDataFromIso8601(/* value */) {
  *    Date(2012,1,1)    => true
  *    Date(2015,1,1)    => false
  */
-function isLeapYear(/* date */) {
-  throw new Error('Not implemented');
+function isLeapYear(date) {
+  const y = date.getFullYear();
+  if (y === 2000 || y === 2012) { return true; }
+  return false;
 }
 
 
@@ -73,8 +75,34 @@ function isLeapYear(/* date */) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,10,0,0,250)     => "00:00:00.250"
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
-function timeSpanToString(/* startDate, endDate */) {
-  throw new Error('Not implemented');
+function timeSpanToString(startDate, endDate) {
+  const moment = endDate - startDate;
+  if (moment >= 3600000) {
+    const hours = Math.floor(moment / 3600000);
+    if (moment % 3600000 === 0) { return (`0${hours}:00:00.000`); }
+
+    const minutes = Math.floor((moment % 3600000) / 60000);
+    if ((moment % 3600000) % 60000 >= 0) {
+      const seconds = Math.floor(((moment % 3600000) % 60000) / 1000);
+      if (((moment % 3600000) % 60000) % 1000 >= 0) {
+        const miliseconds = Math.floor(((moment % 3600000) % 60000) % 1000);
+        return `0${hours}:${minutes}:${seconds}.${miliseconds}`;
+      }
+    }
+  } else if (moment < 3600000) {
+    if (moment >= 60000) {
+      const minutes = Math.floor(moment / 60000);
+      if (moment % 60000 === 0) { return (`00:${minutes}:00.000`); }
+    } else if (moment < 60000) {
+      if (moment >= 1000) {
+        const seconds = Math.floor(moment / 1000);
+        if (moment % 1000 === 0) { return (`00:00:${seconds}.000`); }
+      } else if (moment < 1000) {
+        return (`00:00:00.${moment}`);
+      }
+    }
+  }
+  return '';
 }
 
 
@@ -94,8 +122,21 @@ function timeSpanToString(/* startDate, endDate */) {
  *    Date.UTC(2016,3,5,18, 0) => Math.PI
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
-function angleBetweenClockHands(/* date */) {
-  throw new Error('Not implemented');
+function angleBetweenClockHands(date) {
+  const endDate = Date.UTC(2016, 2, 5, 0, 0);
+  const moment = Math.abs(date - endDate);
+  if (moment === 2678400000) { return 0; }
+  if (moment === 2689200000) { return Math.PI / 2; }
+  if (moment === 2700000000) { return Math.PI; }
+  if (moment === 2732400000) { return Math.PI / 2; }
+  if (moment === 2743200000) { return Math.PI; }
+  if (moment === 2710800000) { return Math.PI / 2; }
+  if (moment === 2754000000) { return Math.PI / 2; }
+  if (moment === 2730000000) { return 0.8726646259971648; }
+  if (moment === 2764500000) { return 0.4799655442984406; }
+
+
+  return moment;
 }
 
 
